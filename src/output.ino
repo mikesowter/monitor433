@@ -6,29 +6,30 @@ void output(unsigned long decimal, unsigned int length, unsigned int delay, unsi
   if (decimal == 0) {
     Serial.print("Unknown encoding.");
   } else {
+    Serial.print(lookup(decimal));
     const char* b = dec2binWzerofill(decimal, length);
-    Serial.print("Decimal: ");
-    Serial.print(decimal);
+    Serial.print("  Hex: ");
+    Serial.print(decimal,HEX);
     Serial.print(" (");
     Serial.print( length );
-    Serial.print("Bit) Binary: ");
-    Serial.print( b );
+    Serial.println("Bit)");
+/*    Serial.print( b );
     Serial.print(" Tri-State: ");
     Serial.print( bin2tristate( b) );
     Serial.print(" PulseLength: ");
     Serial.print(delay);
     Serial.print(" microseconds");
     Serial.print(" Protocol: ");
-    Serial.println(protocol);
+    Serial.println(protocol);   */
   }
-
+/*
   Serial.print("Raw data: ");
   for (unsigned int i=0; i<= length*2; i++) {
     Serial.print(raw[i]);
     Serial.print(",");
   }
   Serial.println();
-  Serial.println();
+  Serial.println(); */
 }
 
 static const char* bin2tristate(const char* bin) {
