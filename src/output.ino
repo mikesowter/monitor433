@@ -7,12 +7,14 @@ void output(unsigned long decimal, unsigned int length, unsigned int delay, unsi
     Serial.print("Unknown encoding.");
   } else {
     Serial.print(lookup(decimal));
-    const char* b = dec2binWzerofill(decimal, length);
+//    const char* b = dec2binWzerofill(decimal, length);
     Serial.print("  Hex: ");
     Serial.print(decimal,HEX);
     Serial.print(" (");
     Serial.print( length );
     Serial.println("Bit)");
+    writeFile(lookup(decimal));
+//    delay(1000);            //debounce
 /*    Serial.print( b );
     Serial.print(" Tri-State: ");
     Serial.print( bin2tristate( b) );

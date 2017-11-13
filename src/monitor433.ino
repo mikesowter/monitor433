@@ -48,6 +48,25 @@ void setup() {
   startMillis = millis();
   dateStamp();
 
+  //if(!SPIFFS.format()||!SPIFFS.begin())     //use to format SPIFFS drive
+  if(!SPIFFS.begin())
+  {
+    Serial.println("SPIFFS.begin failed");
+  }
+  SPIFFS.info(fs_info);
+  Serial.print(fs_info.totalBytes);
+  Serial.println(" bytes available");
+  Serial.print(fs_info.usedBytes);
+  Serial.println(" bytes used:");
+  openFile("/alarms.csv");
+
+  server.on ( "/", handleRoot );
+  server.on ( "/dir", handleDir );
+  server.onNotFound ( handleNotFound );
+  server.begin();
+  Serial.println ( "HTTP server started" );
+  server.handleClient();
+
   mySwitch.enableReceive(5);  // Receiver on interrupt 0 => that is pin #2
 }
 
@@ -56,10 +75,13 @@ void loop() {
     timeStamp();
     output(mySwitch.getReceivedValue(), mySwitch.getReceivedBitlength(), mySwitch.getReceivedDelay(), mySwitch.getReceivedRawdata(),mySwitch.getReceivedProtocol());
     mySwitch.resetAvailable();
+    delay(1000);
   }
   watchDog=0;
   // check for OTA
   ArduinoOTA.handle();
+  server.handleClient();
+  fh.flush();
 }
 
 void ISRwatchDog () {
@@ -70,6 +92,7 @@ void ISRwatchDog () {
   }
   if (watchDog >= 60) {
     Serial.println("watchDog 60s");
+    fh.close();
     ESP.restart();
   }
   interrupts();
