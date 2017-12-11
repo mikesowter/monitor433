@@ -4,34 +4,30 @@ static char * dec2binWzerofill(unsigned long Dec, unsigned int bitLength);
 void output(unsigned long decimal, unsigned int length, unsigned int delay, unsigned int* raw, unsigned int protocol) {
 
   if (decimal == 0) {
-    Serial.print("Unknown encoding.");
+    Serial.println("Unknown encoding");
   } else {
-    Serial.print(lookup(decimal));
-//    const char* b = dec2binWzerofill(decimal, length);
-    Serial.print("  Hex: ");
+    strcpy(alarmText,lookup(decimal));
+    Serial.print(" ");
     Serial.print(decimal,HEX);
-    Serial.print(" (");
-    Serial.print( length );
-    Serial.println("Bit)");
-    writeFile(lookup(decimal));
-//    delay(1000);            //debounce
-/*    Serial.print( b );
-    Serial.print(" Tri-State: ");
+    Serial.print(" ");
+    Serial.println(alarmText);
+    writeFile(alarmText);
+  }
+}
+/*    Serial.print(" Tri-State: ");
     Serial.print( bin2tristate( b) );
     Serial.print(" PulseLength: ");
     Serial.print(delay);
     Serial.print(" microseconds");
     Serial.print(" Protocol: ");
-    Serial.println(protocol);   */
+    Serial.println(protocol);
   }
-/*
   Serial.print("Raw data: ");
   for (unsigned int i=0; i<= length*2; i++) {
     Serial.print(raw[i]);
     Serial.print(",");
   }
   Serial.println();
-  Serial.println(); */
 }
 
 static const char* bin2tristate(const char* bin) {
@@ -74,4 +70,4 @@ static char * dec2binWzerofill(unsigned long Dec, unsigned int bitLength) {
   bin[bitLength] = '\0';
 
   return bin;
-}
+}`*/

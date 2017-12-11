@@ -22,7 +22,7 @@ Ticker secondTick;
 volatile int watchDog = 0;
 
 char fileName[] = "/XXyymmdd.csv";
-char userText[] = "/XXyymmdd.csv";
+char alarmText[30];
 char errMess[5][60];
 unsigned long getTime();
 unsigned long sendNTPrequest(IPAddress& address);
@@ -40,12 +40,12 @@ unsigned int localPort = 2390;   //  a random local port to listen for UDP packe
 IPAddress localIP,timeServerIP,fileServerIP;
 const char* ntpServerName = "au.pool.ntp.org";
 const char* ftpServerName = "ftp.sowter.com";
-const int HTML_SIZE = 2000;
+const int HTML_SIZE = 5000;
 char htmlStr[HTML_SIZE];        // use C strings for storage efficiency
 int htmlLen;
 const int NTP_PACKET_SIZE = 48;
 const int BUFFER_SIZE = 128;
 const int ISR_CAP = 128;
-byte Buffer[BUFFER_SIZE];
+byte buffer[BUFFER_SIZE];
 char outBuf[128];               // for ftpRcv and errMessage
 const int timeZone = 10;

@@ -1,11 +1,3 @@
-/*
-  Example for receiving
-
-  https://github.com/sui77/rc-switch/
-
-  If you want to visualize a telegram copy the raw data and
-  paste it into http://test.sui.li/oszi/
-*/
 
 #include <RCSwitch.h>
 #include <monitor433.h>
@@ -17,6 +9,10 @@ void setup() {
 
   Serial.begin(115200);
   Serial.println("\n433MHz monitor V1.0  2017-11-12");
+  Serial.println(ESP.getResetReason());
+  Serial.println(ESP.getCoreVersion());
+//  Serial.println(ESP.getSdkVersion());
+//  Serial.println(ESP.getFlashChipSize());
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -61,7 +57,9 @@ void setup() {
   openFile("/alarms.csv");
 
   server.on ( "/", handleRoot );
+  server.on ( "/del", handleDel );
   server.on ( "/dir", handleDir );
+  server.on ( "/dump", handleDump );
   server.onNotFound ( handleNotFound );
   server.begin();
   Serial.println ( "HTTP server started" );

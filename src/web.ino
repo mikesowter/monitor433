@@ -35,12 +35,37 @@ void handleDir() {
   server.send ( 200, "text/html", htmlStr );
 }
 
+void handleDel() {
+  fh.close();
+  SPIFFS.remove("/alarms.csv");
+  fh = SPIFFS.open("/alarms.csv", "a+");
+  strcpy(outBuf,"<!DOCTYPE html><html><head><HR>Alarms deleted<HR></head></html>");
+  server.send ( 200, "text/html", outBuf );
+}
+
+void handleDump() {
+  fh.close();
+  uint32_t bytes;
+  uint32_t* ptr;
+//  ptr = 0x40300000UL;
+  for (int col=0;col<0x20;col++) {
+    Serial.print(col,HEX);
+    Serial.print(" ");
+    bytes=*ptr++;
+    Serial.println(bytes,HEX);
+  }
+}
+
 void helpPage() {
   htmlStr[0]='\0';
   addCstring("<!DOCTYPE html><html><body><HR>");
   addCstring("Valid options include:");
   addCstring("<P>");
+  addCstring("del");
+  addCstring("<P>");
   addCstring("dir");
+  addCstring("<P>");
+  addCstring("dump");
   addCstring("<HR>");
   addCstring( "<HR></body></html>" );
   server.send ( 200, "text/html", htmlStr );
