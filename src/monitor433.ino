@@ -8,7 +8,7 @@ void setup() {
   secondTick.attach(1,ISRwatchDog);
 
   Serial.begin(115200);
-  Serial.println("\n433MHz monitor V1.0  2017-11-12");
+  Serial.println("\n433MHz monitor V1.0  2017-12-12");
   Serial.println(ESP.getResetReason());
   Serial.println(ESP.getCoreVersion());
 //  Serial.println(ESP.getSdkVersion());
@@ -73,7 +73,7 @@ void loop() {
     timeStamp();
     output(mySwitch.getReceivedValue(), mySwitch.getReceivedBitlength(), mySwitch.getReceivedDelay(), mySwitch.getReceivedRawdata(),mySwitch.getReceivedProtocol());
     mySwitch.resetAvailable();
-    delay(1000);
+    delay(5000);
   }
   watchDog=0;
   // check for OTA
@@ -89,7 +89,7 @@ void ISRwatchDog () {
     Serial.println("watchDog 30s alert");
   }
   if (watchDog >= 60) {
-    Serial.println("watchDog 60s");
+    Serial.println("watchDog 60s reset");
     fh.close();
     ESP.restart();
   }

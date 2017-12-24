@@ -22,8 +22,7 @@ Ticker secondTick;
 volatile int watchDog = 0;
 
 char fileName[] = "/XXyymmdd.csv";
-char alarmText[30];
-char errMess[5][60];
+char alarmText[40];
 unsigned long getTime();
 unsigned long sendNTPrequest(IPAddress& address);
 unsigned long getNTPreply();
@@ -32,15 +31,17 @@ char ssid[] = "TelstraCF6EC7";
 char pass[] = "meauff8qqwn9";        //  your network password
 char d2Str[] = "12";
 char d8Str[] = "12345.78";
+char hexStr[]= "      ";
+char thisText[6],lastText[]="12345";
+uint8_t repCount=0;
 
 unsigned long t0, t1, minMillis, startMillis, startSeconds, midNight;
-unsigned long importWh = 0;
-unsigned int localPort = 2390;   //  a random local port to listen for UDP packets
+unsigned int localPort = 2391;   //  a random local port to listen for UDP packets
 
 IPAddress localIP,timeServerIP,fileServerIP;
 const char* ntpServerName = "au.pool.ntp.org";
 const char* ftpServerName = "ftp.sowter.com";
-const int HTML_SIZE = 5000;
+const int HTML_SIZE = 7000;
 char htmlStr[HTML_SIZE];        // use C strings for storage efficiency
 int htmlLen;
 const int NTP_PACKET_SIZE = 48;

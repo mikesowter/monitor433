@@ -1,17 +1,21 @@
 static const char* bin2tristate(const char* bin);
 static char * dec2binWzerofill(unsigned long Dec, unsigned int bitLength);
 
-void output(unsigned long decimal, unsigned int length, unsigned int delay, unsigned int* raw, unsigned int protocol) {
+void output(unsigned long code, unsigned int length, unsigned int delay, unsigned int* raw, unsigned int protocol) {
 
-  if (decimal == 0) {
+  if (code == 0) {
     Serial.println("Unknown encoding");
   } else {
-    strcpy(alarmText,lookup(decimal));
-    Serial.print(" ");
-    Serial.print(decimal,HEX);
-    Serial.print(" ");
-    Serial.println(alarmText);
-    writeFile(alarmText);
+    strcpy(alarmText,toHex(code));
+    strcat(alarmText," ");
+    strcat(alarmText,lookup(code));
+    for (int i=0;i<5;i++) thisText[i]=alarmText[i+7];
+    if (strcmp(thisText, lastText)==0) {
+      if (repCount++ < 3) writeFile();
+    } else {
+      repCount = 0;
+      strcpy(lastText, thisText);
+    }
   }
 }
 /*    Serial.print(" Tri-State: ");

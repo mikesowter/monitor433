@@ -2,18 +2,13 @@
 void handleRoot() {
   char line[80];
   htmlStr[0]='\0';
-  addCstring("<!DOCTYPE html><html><body><HR>");
-
   fh.seek(0,SeekSet);
   while (fh.available()) {
     int k=fh.readBytesUntil('\r',line,79);
     line[k]='\0';
     addCstring(line);
-    addCstring("<P>");
   }
-  addCstring( "<HR></body></html>" );
-  //Serial.println(htmlStr);
-  server.send ( 200, "text/html", htmlStr );
+  server.send ( 200, "text/plain", htmlStr );
 
 }
 

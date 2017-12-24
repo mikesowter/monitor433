@@ -11,7 +11,7 @@ byte openFile(char* fileName) {
   return 1;
 }
 
-void writeFile(char* alarm) {
+void writeFile() {
   fh.print(p2d(day()));
   fh.print(" ");
   fh.print(p2d(hour()));
@@ -20,6 +20,6 @@ void writeFile(char* alarm) {
   fh.print(":");
   fh.print(p2d(second()));
   fh.print("  ");
-  fh.println(alarm);
+  fh.println(alarmText);
   yield();
 }

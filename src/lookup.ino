@@ -1,4 +1,4 @@
-const uint8_t num = 15;
+const uint8_t num = 23;
 uint8_t match;
 uint32_t iCode,mask;
 char  guess[30];
@@ -7,6 +7,14 @@ struct table {
   uint32_t code;
   char  meaning[20];
 } alarms[num] = {
+    {0x367851,"armed away FOB1"},
+    {0x367852,"disarmed FOB1"},
+    {0x367854,"armed home FOB1"},
+    {0x367858,"SOS on FOB1"},
+    {0x310021,"armed away FOB2"},
+    {0x310022,"disarmed FOB2"},
+    {0x310024,"armed home FOB2"},
+    {0x310028,"SOS on FOB2"},
     {0xDCB622,"study PIR"},
     {0x886626,"stair PIR"},
     {0x43AE26,"dining PIR"},
@@ -38,5 +46,15 @@ char* lookup(uint32_t code) {
       mask >>= 4;
     }
   }
-  return "unknown alarm";
+  return " is unknown";
+}
+
+char* toHex(uint32_t code) {
+  for (int i=0;i<6;i++) {
+    hexStr[i]=(0xF&(code>>(4*(5-i))))+'0';
+    if (hexStr[i]>'9') hexStr[i] += 7; //convert 0X3A into 0x40
+    Serial.print(hexStr[i]);
+  }
+  Serial.println();
+  return hexStr;
 }
