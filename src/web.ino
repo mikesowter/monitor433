@@ -2,7 +2,7 @@
 void handleRoot() {
   char line[80];
   htmlStr[0]='\0';
-  fh.seek(0,SeekSet);
+  if(!fh.seek(-1900,SeekCur)) fh.seek(0,SeekSet);
   while (fh.available()) {
     int k=fh.readBytesUntil('\r',line,79);
     line[k]='\0';

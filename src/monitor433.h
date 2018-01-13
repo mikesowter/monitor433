@@ -41,7 +41,7 @@ unsigned int localPort = 2391;   //  a random local port to listen for UDP packe
 IPAddress localIP,timeServerIP,fileServerIP;
 const char* ntpServerName = "au.pool.ntp.org";
 const char* ftpServerName = "ftp.sowter.com";
-const int HTML_SIZE = 7000;
+const int HTML_SIZE = 2000;
 char htmlStr[HTML_SIZE];        // use C strings for storage efficiency
 int htmlLen;
 const int NTP_PACKET_SIZE = 48;

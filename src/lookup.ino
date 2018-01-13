@@ -1,4 +1,4 @@
-const uint8_t num = 23;
+const uint8_t num = 25;
 uint8_t match;
 uint32_t iCode,mask;
 char  guess[30];
@@ -6,7 +6,7 @@ char  guess[30];
 struct table {
   uint32_t code;
   char  meaning[20];
-} alarms[num] = {
+} alarms[] = {
     {0x367851,"armed away FOB1"},
     {0x367852,"disarmed FOB1"},
     {0x367854,"armed home FOB1"},
@@ -28,8 +28,10 @@ struct table {
     {0x9AE5A8,"Dan's SMOKE"},
     {0x4EEEE8,"Court's SMOKE"},
     {0x3ABAE8,"dungeon SMOKE"},
-    {0xA38A58,"Gayle's SMOKE"},
-    {0xAAAAAA,"Dan's WINDOW"}};
+    {0xA38A52,"Gayle's SMOKE"},
+    {0xA38A58,"Gayle's PANIC"},
+    {0x8FACBF,"System ALARM"},
+    {0xD91006,"Dan's WINDOW"}};
 
 char* lookup(uint32_t code) {
   for (int i=0;i<num;i++) {
