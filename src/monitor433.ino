@@ -16,6 +16,7 @@ void setup() {
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
+  WiFi.config(ip, gateway, subnet, dns);
   WiFi.begin(ssid, pass);
 
   while (WiFi.status() != WL_CONNECTED)

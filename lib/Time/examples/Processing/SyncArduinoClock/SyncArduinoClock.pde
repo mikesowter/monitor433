@@ -72,7 +72,7 @@ long getTimeNow(){
   Date d = new Date();
   Calendar cal = new GregorianCalendar();
   long current = d.getTime()/1000;
-  long timezone = cal.get(cal.ZONE_OFFSET)/1000;
+  long TIMEZONE = cal.get(cal.ZONE_OFFSET)/1000;
   long daylight = cal.get(cal.DST_OFFSET)/1000;
-  return current + timezone + daylight; 
+  return current + TIMEZONE + daylight; 
 }

@@ -2,7 +2,7 @@
 void handleRoot() {
   char line[80];
   htmlStr[0]='\0';
-  if(!fh.seek(-1900,SeekCur)) fh.seek(0,SeekSet);
+  if(!fh.seek(-9900,SeekCur)) fh.seek(0,SeekSet);
   while (fh.available()) {
     int k=fh.readBytesUntil('\r',line,79);
     line[k]='\0';
@@ -62,6 +62,8 @@ void helpPage() {
   addCstring("<P>");
   addCstring("dump");
   addCstring("<HR>");
+  addCstring("filename.xyz");
+  addCstring("<P>");
   addCstring( "<HR></body></html>" );
   server.send ( 200, "text/html", htmlStr );
 }

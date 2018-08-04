@@ -18,11 +18,11 @@ IPAddress timeServer(132, 163, 4, 101); // time-a.timefreq.bldrdoc.gov
 // IPAddress timeServer(132, 163, 4, 103); // time-c.timefreq.bldrdoc.gov
 
 
-const int timeZone = 1;     // Central European Time
-//const int timeZone = -5;  // Eastern Standard Time (USA)
-//const int timeZone = -4;  // Eastern Daylight Time (USA)
-//const int timeZone = -8;  // Pacific Standard Time (USA)
-//const int timeZone = -7;  // Pacific Daylight Time (USA)
+const int TIMEZONE = 1;     // Central European Time
+//const int TIMEZONE = -5;  // Eastern Standard Time (USA)
+//const int TIMEZONE = -4;  // Eastern Daylight Time (USA)
+//const int TIMEZONE = -8;  // Pacific Standard Time (USA)
+//const int TIMEZONE = -7;  // Pacific Daylight Time (USA)
 
 
 WiFiUDP Udp;
@@ -112,7 +112,7 @@ time_t getNtpTime()
       secsSince1900 |= (unsigned long)packetbuffer[41] << 16;
       secsSince1900 |= (unsigned long)packetbuffer[42] << 8;
       secsSince1900 |= (unsigned long)packetbuffer[43];
-      return secsSince1900 - 2208988800UL + timeZone * SECS_PER_HOUR;
+      return secsSince1900 - 2208988800UL + TIMEZONE * SECS_PER_HOUR;
     }
   }
   Serial.println("No NTP Response :-(");
