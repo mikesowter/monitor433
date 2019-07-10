@@ -45,8 +45,8 @@ void setup() {
   startMillis = millis();
   dateStamp();
 
-  //if(!SPIFFS.format()||!SPIFFS.begin())     //use to format SPIFFS drive
-  if(!SPIFFS.begin())
+  if(!SPIFFS.format()||!SPIFFS.begin())     //use to format SPIFFS drive
+  //if(!SPIFFS.begin())
   {
     Serial.println("SPIFFS.begin failed");
   }
