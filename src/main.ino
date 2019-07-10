@@ -1,8 +1,5 @@
-
-#include <RCSwitch.h>
-#include <main.h>
-
-RCSwitch mySwitch = RCSwitch();
+#include "main.h"
+#include "functions.h"
 
 void setup() {
   Serial.begin(115200);

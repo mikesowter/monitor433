@@ -12,13 +12,13 @@ byte openFile(char* fileName) {
 }
 
 void writeFile() {
-  fh.print(p2d(day()));
+  fh.print(i2sd(day()));
   fh.print(" ");
-  fh.print(p2d(hour()));
+  fh.print(i2sd(hour()));
   fh.print(":");
-  fh.print(p2d(minute()));
+  fh.print(i2sd(minute()));
   fh.print(":");
-  fh.print(p2d(second()));
+  fh.print(i2sd(second()));
   fh.print("  ");
   fh.println(alarmText);
   yield();

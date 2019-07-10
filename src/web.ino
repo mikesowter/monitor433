@@ -34,8 +34,8 @@ void handleDel() {
   fh.close();
   SPIFFS.remove("/alarms.csv");
   fh = SPIFFS.open("/alarms.csv", "a+");
-  strcpy(outBuf,"<!DOCTYPE html><html><head><HR>Alarms deleted<HR></head></html>");
-  server.send ( 200, "text/html", outBuf );
+  strcpy(charBuf,"<!DOCTYPE html><html><head><HR>Alarms deleted<HR></head></html>");
+  server.send ( 200, "text/html", charBuf );
 }
 
 void handleDump() {
