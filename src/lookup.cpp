@@ -4,6 +4,7 @@ const uint8_t MAXALARMS = 25;
 uint8_t match;
 uint32_t iCode,mask;
 char guess[30];
+char hexStr[]= "      ";
 
 char* lookup(uint32_t code);
 char* toHex(uint32_t code);
@@ -63,7 +64,6 @@ char* lookup(uint32_t code) {
 }
 
 char* toHex(uint32_t code) {
-  char hexStr[]= "      ";
   for (int i=0;i<6;i++) {
     hexStr[i]=(0xF&(code>>(4*(5-i))))+'0';
     if (hexStr[i]>'9') hexStr[i] += 7; //convert 0X3A into 0x40

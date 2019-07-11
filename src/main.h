@@ -31,7 +31,6 @@ char charBuf[128];
 char alarmText[40];
 String resetReason = "restart: " + ESP.getResetReason();
 char thisText[6],lastText[]="12345";
-uint8_t repCount=0;
 
 unsigned long t0, t1, minMillis, startMillis, startSeconds, midNight;
 uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth;
