@@ -23,16 +23,6 @@ void watchWait(uint32_t timer);
 // setupTime
 void setupTime();
 void dayCheck();
-// setupInv
-void setupInv();
-// queryInv
-void queryInv();
-void readBytes(bool HexOut);
-void addCstring(const char* s);
-bool goodCheckSum(uint8_t len);
-// updateTotal
-uint8_t readTotal();
-uint8_t updateTotal();
 // dirList
 void handleDir();
 void listFile();
@@ -50,7 +40,5 @@ void setupSPIFFS ();
 uint8_t storeData();
 uint8_t openFile(const char* s);
 void writeTemps();
-// scan1Wire
-void scan1Wire();
 // output
 void output(unsigned long code, unsigned int length, unsigned int delay, unsigned int* raw, unsigned int protocol);

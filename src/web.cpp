@@ -4,6 +4,7 @@
 #include "functions.h"
 
 const int HTML_SIZE = 10000;
+void addCstring(const char* s);
 
 extern char htmlStr[];
 extern File fh;
@@ -49,19 +50,6 @@ void handleDel() {
   server.send ( 200, "text/html", charBuf );
 }
 
-void handleDump() {
-  fh.close();
-  uint32_t bytes;
-  uint32_t* ptr;
-//  ptr = 0x40300000UL;
-  for (int col=0;col<0x20;col++) {
-    Serial.print(col,HEX);
-    Serial.print(" ");
-    bytes=*ptr++;
-    Serial.println(bytes,HEX);
-  }
-}
-
 void helpPage() {
   htmlStr[0]='\0';
   addCstring("<!DOCTYPE html><html><body><HR>");
@@ -83,7 +71,7 @@ void handleNotFound() {
   helpPage();
 }
 
-void addCstring(char* s) {
+void addCstring(const char* s) {
   // find end of htmlStr
   uint16_t p;
   for (p=0;p<HTML_SIZE;p++) {

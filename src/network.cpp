@@ -22,7 +22,7 @@ WiFiClient client;
 const uint8_t NTP_PACKET_SIZE = 48;
 const uint8_t BUFFER_SIZE = 100;
 uint8_t byteBuf[BUFFER_SIZE];
-const char* ntpServerName = "au.pool.ntp.org";
+extern char* ntpServerName;
 const uint8_t TIME_ZONE = 10;
 
 void joinNet() {

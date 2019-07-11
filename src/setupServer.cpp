@@ -3,14 +3,13 @@
 
 extern ESP8266WebServer server;
 
-void handleMetrics();
+void handleRoot();
 void handleNotFound();
 void handleDir();
 
 void setupServer() {
-  server.on ( "/", handleMetrics );
+  server.on ( "/", handleRoot );
   server.on ( "/dir", handleDir );
-  server.on ( "/metrics", handleMetrics );
   server.onNotFound ( handleNotFound );
   server.begin();
   Serial.println( "server started" );

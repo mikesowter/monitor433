@@ -7,7 +7,8 @@ void printHex(uint8_t X);
 char* i2sh(uint8_t b);
 char* i2sd(uint8_t b);
 char* f2s2(float f);
-
+char fltStr[12];
+ 
 extern File fd,fe;
 
 char d2Str[] = "12";
@@ -77,7 +78,6 @@ char* i2sd(uint8_t b) {
 
 // convert float into char string ddddd.dd
 char* f2s2(float f) {
-  char fltStr[12];
   dtostrf((double)f, 0, 2, fltStr);
   return fltStr;
 }
