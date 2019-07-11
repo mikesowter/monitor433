@@ -3,7 +3,7 @@
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("\n433MHz monitor V2.0  2019-07-10");
+  Serial.println("\n433MHz monitor V2.0  2019-07-11");
 	// join local network and internet
 	joinNet();
 	// setup over the air updates
