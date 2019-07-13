@@ -22,9 +22,9 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile int watchDog = 0;
 
-char todayName[14],fileName[] = "/XXyymmdd.csv";
+char todayName[14],fileName[] = "/alarms.csv";
 char charBuf[128],dateStr[10],timeStr[10];
-char alarmText[40];
+char alarmText[50],alarmID[30];
 String resetReason = "restart: " + ESP.getResetReason();
 char thisText[6],lastText[]="12345";
 

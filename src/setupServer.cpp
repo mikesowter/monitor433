@@ -5,10 +5,12 @@ extern ESP8266WebServer server;
 
 void handleRoot();
 void handleNotFound();
+void handleDel();
 void handleDir();
 
 void setupServer() {
   server.on ( "/", handleRoot );
+  server.on ( "/del", handleDel );
   server.on ( "/dir", handleDir );
   server.onNotFound ( handleNotFound );
   server.begin();

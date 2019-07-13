@@ -3,7 +3,7 @@
 const uint8_t MAXALARMS = 25;
 uint8_t match;
 uint32_t iCode,mask;
-char guess[30];
+extern char alarmID[];
 char hexStr[]= "      ";
 
 char* lookup(uint32_t code);
@@ -13,10 +13,10 @@ struct table {
   uint32_t code;
   String meaning;
 } alarms[] = {
-    {0x367851,"armed away FOB1"},
-    {0x367852,"disarmed FOB1"},
-    {0x367854,"armed home FOB1"},
-    {0x367858,"SOS on FOB1"},
+    {0xA38A51,"armed away FOB1"},
+    {0xA38A52,"disarmed FOB1"},
+    {0xA38A54,"armed home FOB1"},
+    {0xA38A58,"SOS on FOB1"},
     {0x310021,"armed away FOB2"},
     {0x310022,"disarmed FOB2"},
     {0x310024,"armed home FOB2"},
@@ -41,9 +41,10 @@ struct table {
 
 char* lookup(uint32_t code) {
   for (int i=0;i<MAXALARMS;i++) {
-    if (code == alarms[i].code)
-    alarms[i].meaning.toCharArray(guess,alarms[i].meaning.length()+1);
-    return guess;
+    if (code == alarms[i].code) {
+      alarms[i].meaning.toCharArray(alarmID,alarms[i].meaning.length()+1);
+      return alarmID;
+    }
   }
   for (int i=0;i<MAXALARMS;i++) {
     uint8_t match = 0;
@@ -52,15 +53,15 @@ char* lookup(uint32_t code) {
     for (int j=0;j<6;j++) {
       if ( (code&mask) ==  (iCode&mask) ) match++;
       if ( match > 4 ) {
-        alarms[i].meaning.toCharArray(guess,alarms[i].meaning.length()+1);
-        strcat(guess,(char*)" ??");
-        return guess;
+        alarms[i].meaning.toCharArray(alarmID,alarms[i].meaning.length()+1);
+        strcat(alarmID,(char*)" ??");
+        return alarmID;
       }
       mask >>= 4;
     }
   }
-  strcpy(guess,(char*)" is unknown");
-  return guess;
+  strcpy(alarmID,(char*)" is unknown");
+  return alarmID;
 }
 
 char* toHex(uint32_t code) {

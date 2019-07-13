@@ -9,7 +9,7 @@ char* dateStamp();
 char* timeStamp();
 
 extern File fh;
-extern char alarmText[40];
+extern char alarmText[];
 
 byte openFile(char* fileName) {
   fh = SPIFFS.open(fileName, "a+");
