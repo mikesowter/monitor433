@@ -7,7 +7,7 @@ unsigned long getTime();
 
 extern uint8_t oldMin,oldQtr,oldHour,oldDay,oldMonth;
 extern uint32_t t0, startMillis;
-extern char todayName[], charBuf[];
+extern char charBuf[];
 
 void setupTime() {
   setTime(getTime());
@@ -24,9 +24,6 @@ void setupTime() {
   strcat(charBuf," ");
   strcat(charBuf,timeStamp());
   Serial.println(charBuf);
-  strcpy(todayName,"/pt");
-  strcat(todayName,dateStamp());
-  strcat(todayName,".csv");
 }
 
 void dayCheck() {

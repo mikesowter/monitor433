@@ -1,7 +1,7 @@
 #include <fs.h>
 
 extern FSInfo fs_info;
-extern File fd,fe;
+extern File fh,fd,fe;
 
 void setupSPIFFS () {
 
@@ -17,4 +17,5 @@ void setupSPIFFS () {
 
   fd = SPIFFS.open("/diags.txt","a");
   fe = SPIFFS.open("/errmess.txt","a");
+  fh = SPIFFS.open("/alarms.txt","a+");
 }

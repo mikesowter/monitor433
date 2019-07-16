@@ -24,6 +24,7 @@ void setup() {
 	resetReason.toCharArray(charBuf,resetReason.length()+1);
   diagMess(charBuf);              // restart message
 	startMillis = millis();
+  safetyLight();
 }
 
 void loop() {
@@ -36,7 +37,10 @@ void loop() {
   watchDog=0;
   // check for OTA
   ArduinoOTA.handle();
+  // check for web request
   server.handleClient();
+  // check for FTP request
+  ftpSrv.handleFTP();
   fh.flush();
 }
 

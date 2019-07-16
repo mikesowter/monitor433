@@ -26,6 +26,7 @@ void handleRoot() {
 
 void handleDir() {
   char fileSize[]="999999";
+  char fileName[]="abcdefgh.ijk"; 
 
   htmlStr[0]='\0';
   addCstring("<!DOCTYPE html><html><body><HR>");

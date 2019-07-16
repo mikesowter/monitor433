@@ -11,16 +11,6 @@ char* timeStamp();
 extern File fh;
 extern char alarmText[];
 
-byte openFile(char* fileName) {
-  fh = SPIFFS.open(fileName, "a+");
-  if (!fh) {
-    Serial.print(fileName);
-    Serial.println(" failed to open");
-    return 0;
-  }
-  return 1;
-}
-
 void writeFile() {
   fh.printf("%s %s %s\n",dateStamp(),timeStamp(),alarmText);
   yield();

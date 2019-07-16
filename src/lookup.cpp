@@ -1,6 +1,6 @@
 #include <arduino.h>
 
-const uint8_t MAXALARMS = 25;
+const uint8_t MAXALARMS = 26;
 uint8_t match;
 uint32_t iCode,mask;
 extern char alarmID[];
@@ -8,11 +8,13 @@ char hexStr[]= "      ";
 
 char* lookup(uint32_t code);
 char* toHex(uint32_t code);
+void safetyLight();
 
 struct table {
   uint32_t code;
   String meaning;
 } alarms[] = {
+    {0x0003AD,"Dummy  SMOKE"},
     {0xA38A51,"armed away FOB1"},
     {0xA38A52,"disarmed FOB1"},
     {0xA38A54,"armed home FOB1"},
@@ -31,7 +33,7 @@ struct table {
     {0xEDEC06,"front DOOR"},
     {0xBCEC06,"back DOOR"},
     {0x8FF406,"laundry DOOR"},
-    {0x9AE5A8,"Dan's SMOKE"},
+    {0x9AE5A8,"Dan's   SMOKE"},
     {0x4EEEE8,"Court's SMOKE"},
     {0x3ABAE8,"dungeon SMOKE"},
     {0xA38A52,"Gayle's SMOKE"},
@@ -43,6 +45,7 @@ char* lookup(uint32_t code) {
   for (int i=0;i<MAXALARMS;i++) {
     if (code == alarms[i].code) {
       alarms[i].meaning.toCharArray(alarmID,alarms[i].meaning.length()+1);
+      if (alarmID[10] == 'O' && alarmID[11] == 'K') safetyLight();
       return alarmID;
     }
   }

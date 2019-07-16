@@ -42,3 +42,5 @@ uint8_t openFile(const char* s);
 void writeTemps();
 // output
 void output(unsigned long code, unsigned int length, unsigned int delay, unsigned int* raw, unsigned int protocol);
+// sacfety
+void safetyLight();
