@@ -15,7 +15,7 @@ void safetyLight()
     Serial.println("connected]");
 
     Serial.println("[Sending a request]");
-    client.print(String("GET /") + " HTTP/1.1\r\n" +
+    client.print(String("GET /fire") + " HTTP/1.1\r\n" +
                  "Host: " + host + "\r\n" +
                  "Connection: close\r\n" +
                  "\r\n"

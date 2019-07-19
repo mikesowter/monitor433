@@ -14,7 +14,7 @@ struct table {
   uint32_t code;
   String meaning;
 } alarms[] = {
-    {0x0003AD,"Dummy  SMOKE"},
+    {0x0003AD,"Dummy   SMOKE"},
     {0xA38A51,"armed away FOB1"},
     {0xA38A52,"disarmed FOB1"},
     {0xA38A54,"armed home FOB1"},
