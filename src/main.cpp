@@ -3,7 +3,7 @@
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("\n433MHz monitor V2.0  2019-07-11");
+  Serial.println("\n433MHz monitor V2.0  2019-07-21");
 	// join local network and internet
 	joinNet();
 	// setup over the air updates
@@ -24,24 +24,18 @@ void setup() {
 	resetReason.toCharArray(charBuf,resetReason.length()+1);
   diagMess(charBuf);              // restart message
 	startMillis = millis();
-  safetyLight();
 }
 
 void loop() {
   if (mySwitch.available()) {
     timeStamp();
-    output(mySwitch.getReceivedValue(), mySwitch.getReceivedBitlength(), mySwitch.getReceivedDelay(), mySwitch.getReceivedRawdata(),mySwitch.getReceivedProtocol());
+    output(mySwitch.getReceivedValue(), mySwitch.getReceivedBitlength(), mySwitch.getReceivedDelay(), 
+          mySwitch.getReceivedRawdata(),mySwitch.getReceivedProtocol());
     mySwitch.resetAvailable();
-    delay(5000);
   }
   watchDog=0;
-  // check for OTA
-  ArduinoOTA.handle();
-  // check for web request
-  server.handleClient();
-  // check for FTP request
-  ftpSrv.handleFTP();
-  fh.flush();
+  // check for activity
+  watchWait(10000UL);
 }
 
 void ISRwatchDog () {
@@ -56,4 +50,18 @@ void ISRwatchDog () {
     ESP.restart();
   }
   interrupts();
+}
+
+void watchWait(uint32_t timer) {
+  t0 = millis();
+  while (millis()-t0 < timer) {  // wait for timeout
+    if (t0>millis()) t0=millis(); // check for wrap around
+    yield();
+    //  check for web requests
+    server.handleClient();
+    // check for OTA
+    ArduinoOTA.handle();
+    // check for FTP request
+		ftpSrv.handleFTP();
+  }
 }

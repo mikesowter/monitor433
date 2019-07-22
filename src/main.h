@@ -22,7 +22,7 @@ File fh,fd,fe;
 Ticker secondTick;
 volatile int watchDog = 0;
 
-char charBuf[128],dateStr[10],timeStr[10];
+char charBuf[128],dateStr[10],timeStr[10],fileSizeStr[10],fileName[14];
 char alarmText[50],alarmID[30];
 String resetReason = "restart: " + ESP.getResetReason();
 char thisText[6],lastText[]="12345";
@@ -31,8 +31,8 @@ unsigned long t0, t1, minMillis, startMillis, midNight;
 uint8_t oldMin, oldQtr, oldHour, oldDay, oldMonth;
 
 const char* ntpServerName = "au.pool.ntp.org";
-const int HTML_SIZE = 10000;
-char htmlStr[HTML_SIZE];        // use C strings for storage efficiency
+uint16_t longStrLen = 10000;
+char longStr[10000];        // use C strings for storage efficiency
 int htmlLen;
 const int NTP_PACKET_SIZE = 48;
 const int BUFFER_SIZE = 128;

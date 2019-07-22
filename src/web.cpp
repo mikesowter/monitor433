@@ -3,44 +3,44 @@
 #include <ESP8266WebServer.h>
 #include "functions.h"
 
-const int HTML_SIZE = 10000;
 void addCstring(const char* s);
 
-extern char htmlStr[];
+extern char longStr[];
 extern File fh;
+extern FSInfo fs_info;
 extern ESP8266WebServer server;
-extern char fileName[],charBuf[];
+extern char fileName[],charBuf[],fileSizeStr[];
 extern int htmlLen;
+extern uint16_t longStrLen;
 
 void handleRoot() {
   char line[80];
-  htmlStr[0]='\0';
+  longStr[0]='\0';
   if(!fh.seek(-9900,SeekCur)) fh.seek(0,SeekSet);
   while (fh.available()) {
     int k=fh.readBytesUntil('\r',line,79);
     line[k]='\0';
     addCstring(line);
   }
-  server.send ( 200, "text/plain", htmlStr );
+  server.send ( 200, "text/plain", longStr );
 }
 
 void handleDir() {
-  char fileSize[]="999999";
-  char fileName[]="abcdefgh.ijk"; 
-
-  htmlStr[0]='\0';
-  addCstring("<!DOCTYPE html><html><body><HR>");
+  longStr[0]='\0';
+  ltoa(fs_info.usedBytes,fileSizeStr,10);
+  addCstring(ltoa(fs_info.usedBytes,fileSizeStr,10));
+	addCstring(" bytes used:\n");
   Dir dir = SPIFFS.openDir("/");
   while (dir.next()) {
     dir.fileName().toCharArray(fileName, 14);
-    addCstring("<P>");
+    addCstring("\n");
     addCstring(fileName);
-    addCstring("&emsp;");
-    itoa(dir.fileSize(),fileSize,7);
-    addCstring(fileSize);
+    addCstring("\t");
+    itoa(dir.fileSize(),fileSizeStr,10);
+    addCstring(fileSizeStr);
   }
-  addCstring( "<HR></body></html>" );
-  server.send ( 200, "text/html", htmlStr );
+  server.send ( 200, "text/plain", longStr );
+  //Serial.println(longStr);
 }
 
 void handleDel() {
@@ -52,7 +52,7 @@ void handleDel() {
 }
 
 void helpPage() {
-  htmlStr[0]='\0';
+  longStr[0]='\0';
   addCstring("<!DOCTYPE html><html><body><HR>");
   addCstring("Valid options include:");
   addCstring("<P>");
@@ -65,7 +65,7 @@ void helpPage() {
   addCstring("filename.xyz");
   addCstring("<P>");
   addCstring( "<HR></body></html>" );
-  server.send ( 200, "text/html", htmlStr );
+  server.send ( 200, "text/html", longStr );
 }
 
 void handleNotFound() {
@@ -73,20 +73,20 @@ void handleNotFound() {
 }
 
 void addCstring(const char* s) {
-  // find end of htmlStr
+  // find end of longStr
   uint16_t p;
-  for (p=0;p<HTML_SIZE;p++) {
-    if ( p>HTML_SIZE-32) {
-      Serial.println("HTML_SIZE exceeded");
+  for (p=0; p<longStrLen; p++) {
+    if ( p > longStrLen-32) {
+      Serial.println("long string exceeded");
       break;
     }
-    if (htmlStr[p]=='\0') {
+    if (longStr[p]=='\0') {
       break;    // p now points to end of old string
     }
   }
   uint16_t q=0;
-  for (;p<HTML_SIZE;p++) {
-    htmlStr[p]=s[q];
+  for (; p<longStrLen; p++) {
+    longStr[p]=s[q];
 //    if (s[q]!='\0') Serial.print(s[q]);
     if (s[q++]=='\0') break;
   }
